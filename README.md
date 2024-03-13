@@ -11,7 +11,7 @@ Podendo ser uma Senha aleatória, Senha de fácil pronúncia ou uma senha criada
     `git clone https://github.com/Royalr4z/password-generator.git`
 3. Compile o Gerador de Senha: <br/>
     `g++ -o main main.cpp`
-4. Execute o jogo: <br/>
+4. Execute o Gerador de Senha: <br/>
     `./main`
 
 # Contribuição
