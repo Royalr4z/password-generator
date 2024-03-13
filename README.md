@@ -1,6 +1,7 @@
 # Password Generator
 
 Este repositório Gera uma Password de acordo com o número de caracteres desejado.
+Podendo ser uma Senha aleatória, Senha de fácil pronúncia ou uma senha criada a partir do input do usuário.
 
 # Como Compilar e Executar
 
