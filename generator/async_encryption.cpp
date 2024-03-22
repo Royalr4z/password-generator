@@ -1,10 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <cryptopp/rsa.h>
 #include <cryptopp/osrng.h>
 #include <cryptopp/base64.h>
 
-int main() {
+std::string Senha_criptografada() {
+
     CryptoPP::AutoSeededRandomPool rng;
 
     // Gerar chaves pública e privada
@@ -23,15 +25,13 @@ int main() {
     CryptoPP::StringSink publicKeySink(publicKeyStr);
     publicKey.DEREncode(publicKeySink);
 
-    // Imprimir as chaves
-    std::cout << "Chave privada: " << std::endl;
-    std::cout << privateKeyStr << std::endl;
+    std::string plainText;
 
-    std::cout << "Chave pública: " << std::endl;
-    std::cout << publicKeyStr << std::endl;
+    system("clear");
 
     // Mensagem a ser criptografada
-    std::string plainText = "Mensagem secreta";
+    std::cout << "Informe a Senha: " << std::endl;;
+    std::cin >> plainText;
 
     // Criptografar a mensagem com a chave pública
     std::string cipherText;
@@ -42,9 +42,6 @@ int main() {
         )
     );
 
-    std::cout << "Texto criptografado: " << std::endl;
-    std::cout << cipherText << std::endl;
-
     // Descriptografar a mensagem com a chave privada
     std::string decryptedText;
     CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(privateKey);
@@ -54,8 +51,45 @@ int main() {
         )
     );
 
-    std::cout << "Texto descriptografado: " << std::endl;
-    std::cout << decryptedText << std::endl;
+    std::ofstream arquivo("Keys.txt");
 
-    return 0;
+    // Convertendo a chave Privada para Base64
+    std::string base64PrivateKey;
+    CryptoPP::StringSource(privateKeyStr, true,
+        new CryptoPP::Base64Encoder(
+            new CryptoPP::StringSink(base64PrivateKey),
+            false // não quebrar linhas
+        )
+    );
+
+    // Convertendo a chave Publica para Base64
+    std::string base64PublicKey;
+    CryptoPP::StringSource(publicKeyStr, true,
+        new CryptoPP::Base64Encoder(
+            new CryptoPP::StringSink(base64PublicKey),
+            false // não quebrar linhas
+        )
+    );
+
+    if (arquivo.is_open()) {
+
+        // Imprimir as chaves
+        arquivo << "Chave privada: " << std::endl;
+        arquivo << base64PrivateKey << std::endl;
+
+        arquivo << "Chave pública: " << std::endl;
+        arquivo << base64PublicKey << std::endl;
+
+    }
+
+    // Convertendo a Senha Criptografada para Base64
+    std::string base64Password;
+    CryptoPP::StringSource(cipherText, true,
+        new CryptoPP::Base64Encoder(
+            new CryptoPP::StringSink(base64Password),
+            false // não quebrar linhas
+        )
+    );
+
+    return base64Password;
 }
