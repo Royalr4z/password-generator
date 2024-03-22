@@ -3,21 +3,27 @@
 Este repositório Gera uma Password de acordo com o número de caracteres desejado.
 Podendo ser uma Senha aleatória, Senha de fácil pronúncia ou uma senha criada a partir do input do usuário.
 
-# Como Compilar e Executar
+# Como Compilar e Executar (Fedora Linux)
 
 1. Certifique-se de ter um compilador C++ instalado em seu sistema.
-
+```
+sudo dnf install gpp
+```
 2. Clone este repositório em seu computador: <br/>
 ```
-    git clone https://github.com/Royalr4z/password-generator.git
+git clone https://github.com/Royalr4z/password-generator.git
+```
+3. Instale o Cryptopp: <br/>
+```
+sudo dnf install cryptopp-devel
 ```
 4. Compile o Gerador de Senha: <br/>
 ```
-    g++ -o main main.cpp
+g++ -o main main.cpp -lcryptopp
 ```
 5. Execute o Gerador de Senha: <br/>
 ```
-    ./main
+./main
 ```
 
 # Contribuição
