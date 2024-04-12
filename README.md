@@ -1,7 +1,8 @@
 # Password Generator
 
 Este repositório Gera uma Password de acordo com o número de caracteres desejado.
-Podendo ser uma Senha aleatória, Senha de fácil pronúncia ou uma senha criada a partir do input do usuário.
+Podendo ser uma Senha aleatória, Senha de fácil pronúncia ou uma senha criada a partir do input do usuário, 
+Também tem a opção de criptografar sua senha gerando automaticamente uma chave pública e uma chave privada
 
 # Como Compilar e Executar (Fedora Linux)
 
