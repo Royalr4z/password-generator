@@ -7,7 +7,20 @@
 #include "generator/random_hash.cpp"
 #include "generator/user_input.cpp"
 #include "generator/pronounce_pw.cpp"
-#include "generator/async_encryption.cpp"
+
+// Verifica se o sistema operacional é Windows.
+// OBS: Geralmente, o Cryptopp não está instalado no Windows,
+// o que pode resultar em um erro no "generator/async_encryption.cpp".
+#ifdef _WIN32
+    #define _Linux false
+    #define _NumOptions 4
+    std::string Senha_criptografada();
+#else
+    #define _Linux true
+    #define _NumOptions 5
+    #include "generator/async_encryption.cpp"
+#endif
+
 
 
 int main() {
@@ -17,15 +30,36 @@ int main() {
     int opcao = 0;
     std::string Senha;
 
-    while (opcao < 1 || opcao > 5) {
+    while (opcao < 1 || opcao > _NumOptions) {
         system("clear");
-        std::cout << "Informe o Tipo da Senha:";
-        std::cout << "\n  1. Senha Aleatoria";
-        std::cout << "\n  2. Palavra Inserida pelo Usuario";
-        std::cout << "\n  3. Senha de facil pronuncia"; 
-        std::cout << "\n  4. Senha Criptografada";
-        std::cout << "\n  5. Sair";
-        std::cout << "\n";
+
+        std::cout << "       .--------.         " << std::endl;
+        std::cout << "      / .------. \\       " << std::endl;
+        std::cout << "     / /        \\ \\     " << std::endl;
+        std::cout << "     | |        | |       " << std::endl;
+        std::cout << "    _| |________| |_      " << std::endl;
+        std::cout << "  .' |_|        |_| '.    " << std::endl;
+        std::cout << "  '._____ ____ _____.'    " << std::endl;
+        std::cout << "  |     .'____'.     |    " << std::endl;
+        std::cout << "  '.__.'.'    '.'.__.'    " << std::endl;
+        std::cout << "  '.__  | LOCK |  __.'    " << std::endl;
+        std::cout << "  |   '.'.____.'.'   |    " << std::endl;
+        std::cout << "  '.____'.____.'____.'    " << std::endl;
+        std::cout << "  '.________________.'    " << std::endl;
+        std::cout << "========================" << std::endl;
+
+        std::cout << "Informe o Tipo da Senha:" << std::endl;
+        std::cout << "  1. Senha Aleatoria" << std::endl;
+        std::cout << "  2. Palavra Inserida pelo Usuario" << std::endl;
+        std::cout << "  3. Senha de facil pronuncia" << std::endl;
+
+        if (_Linux) {
+            std::cout << "  4. Senha Criptografada" << std::endl;
+            std::cout << "  5. Sair" << std::endl;
+        } else if (!_Linux) {
+            std::cout << "  4. Sair" << std::endl;
+        }
+
         std::cin >> opcao;
     }
 
@@ -54,7 +88,10 @@ int main() {
             break;
         
         case 4:
-            Senha = Senha_criptografada();
+            if (_Linux) {
+                Senha = Senha_criptografada();
+            }
+
             break;
 
         default:
