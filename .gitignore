@@ -1,6 +1,14 @@
+# Visual Studio Code
+/.vscode
+
+# Environment
 .env
 .venv
-/.vscode
+
+# Public Keys and Private Keys
 /Keys.txt
+
+# .EXE
+main
 *.exe
 *output
